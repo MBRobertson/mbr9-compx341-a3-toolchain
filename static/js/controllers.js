@@ -21,13 +21,13 @@ ConsoleModule.controller('wcontroller', ['$scope', '$http', '$routeParams', '$ti
 
         var data = "";
         if(which === 1) {
-            data = $scope.zip1m;
+            data = $scope.zip1m || "";
         } else if(which === 2) {
-            data = $scope.zip2m;
+            data = $scope.zip2m || "";
         } else if(which === 3) {
-            data = $scope.zip3m;
+            data = $scope.zip3m || "";
         } else if(which === 4) {
-            data = $scope.zip4m;
+            data = $scope.zip4m || "";
         } 
 
         if(data.length > 0) {
