@@ -16,7 +16,6 @@ exports.getWeather = function(req, res) {
 	}
 
 	var aurl = OPENWEATHERURL + '&q=' + city + ',nz';
-	console.log(aurl);
 
 	request({
 		method: 'GET',
