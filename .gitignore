@@ -12,3 +12,5 @@ static/built/*
 scripts/*.xml
 scripts/*.json
 tests/client/coverage
+.nyc_output/
+coverage/
