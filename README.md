@@ -9,3 +9,8 @@ Repurposed test cases from zip
 
 Reorganized tests for better ide expreriences
 Removed dependancy on grunt, using npm tasks
+
+Moved into a webpack build system rather than bower dependancies
+Moved to react away from angular v1 (not deprecated).
+
+TODO: Look into supertest
