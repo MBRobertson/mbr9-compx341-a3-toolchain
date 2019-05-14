@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './client/WeatherApp.js',
+    entry: ['@babel/polyfill', './client/WeatherApp.js'],
     output: {
         path: path.resolve(__dirname, 'build')
     },
