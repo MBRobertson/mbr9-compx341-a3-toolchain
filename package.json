@@ -40,8 +40,8 @@
     "test": "jest --json --outputFile=test/jesttest.json",
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "clean-test": "rm -rf test/coverage test/coverage test/mochatest.json",
-    "clean-test-fvt": "rm -rf test-fvt/mochafvt.json",
+    "clean-test": "rm -rf test/coverage test/jesttest.json",
+    "clean-test-fvt": "rm -rf test-fvt/jestfvt.json",
     "clean-build": "rm -rf build/",
     "clean": "npm run clean-test && npm run clean-test-fvt && npm run clean-build"
   }
