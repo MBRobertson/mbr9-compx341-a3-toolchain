@@ -34,6 +34,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "JEST_REPORT_FILE=\"./test/jesttest.json\" jest",
+    "test-fvt": "JEST_REPORT_FILE=\"./test-fvt/jestfvt.json\" jest --config=jest.fvt.config.js",
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
     "clean-test": "rm -rf test/coverage test/jesttest.json",
