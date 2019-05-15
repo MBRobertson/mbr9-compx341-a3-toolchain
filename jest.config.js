@@ -32,19 +32,19 @@ module.exports = {
   testEnvironment: "node",
 
   // This option allows the use of a custom results processor
-  // testResultsProcessor: "jest-bamboo-reporter",
-  reporters: [
-    'default',
-    [
-      'jest-xunit',
-      {
-        traitsRegex: [
-          { regex: /\(Test Type:([^,)]+)(,|\)).*/g, name: 'Category' },
-          { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
-        ],
-        outputPath: './test/',
-        filename: 'jesttest.xml'
-      }
-    ]
-  ]
+  testResultsProcessor: "jest-bamboo-reporter",
+  // reporters: [
+  //   'default',
+  //   [
+  //     'jest-xunit',
+  //     {
+  //       traitsRegex: [
+  //         { regex: /\(Test Type:([^,)]+)(,|\)).*/g, name: 'Category' },
+  //         { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
+  //       ],
+  //       outputPath: './test/',
+  //       filename: 'jesttest.xml'
+  //     }
+  //   ]
+  // ]
 };
