@@ -23,7 +23,7 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
     "jest": "^24.8.0",
-    "jest-bamboo-reporter": "^1.2.1",
+    "jest-junit": "^6.4.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
@@ -33,12 +33,12 @@
   },
   "scripts": {
     "start": "node app.js",
-    "test": "jest && node test-convert.js test-report.json test/jesttest.json && rm test-report.json",
-    "test-fvt": "jest --config=jest.fvt.config.js && node test-convert.js test-report.json test-fvt/jestfvt.json && rm test-report.json",
+    "test": "jest",
+    "test-fvt": "jest --config=jest.fvt.config.js",
     "build": "webpack --mode production",
     "watch": "webpack --watch --mode development",
-    "clean-test": "rm -rf test/coverage test/jesttest.json",
-    "clean-test-fvt": "rm -rf test-fvt/jestfvt.json",
+    "clean-test": "rm -rf test/coverage test/jesttest.xml",
+    "clean-test-fvt": "rm -rf test-fvt/jestfvt.xml",
     "clean-build": "rm -rf build/",
     "clean": "npm run clean-test && npm run clean-test-fvt && npm run clean-build"
   }
