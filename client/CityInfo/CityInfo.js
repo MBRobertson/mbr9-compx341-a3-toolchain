@@ -3,6 +3,8 @@ import React from 'react';
 import { CityInput } from './CityInput';
 import { getWeather } from '../API';
 
+import './CityInfo.scss';
+
 class CityInfo extends React.Component {
     constructor() {
         super();
@@ -22,8 +24,8 @@ class CityInfo extends React.Component {
     render() {
         return <div className='city-info'>
             <CityInput onUpdate={this.onCityChange}/>
-            <div>{this.state.city}</div>
-            <div>{this.state.weather}</div>
+            <span className='city underline'>{this.state.city}</span>
+            <span className='weather underline'>{this.state.weather}</span>
         </div>
     }
 }

@@ -6,7 +6,12 @@ let API_URL='/api/v1';
 // returns { city: String, weather: String }
 // Values are empty of server returned no values
 let getWeather = async function(city) {
-    return (fetch(API_URL + '/getWeather?city=' + city).then(res => res.json()));
+    try {
+        return (fetch(API_URL + '/getWeather?city=' + city).then(res => res.json()));
+    } catch (err) {
+        return { city: '', weather: '' }
+    }
+    
 }
 
 export default { getWeather: getWeather }
