@@ -6,7 +6,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "body-parser": "*",
-    "ejs": "*",
     "express": "*",
     "node-fetch": "^2.5.0",
     "react": "^16.8.6",

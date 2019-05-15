@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-let API_URL='http://localhost:3456/api/v1';
+let API_URL='/api/v1';
 
 // Given a city name poll the api for information about weather in that city
 // returns { city: String, weather: String }
