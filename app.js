@@ -25,4 +25,4 @@ server.listen(port, function () {
 });
 
 // Serve index.html by default
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'static', 'index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'client', 'index.html')));
