@@ -6,6 +6,8 @@ mochatest.json
 mochafvt.json
 jesttest.json
 jestfvt.json
+jesttest.xml
+jestfvt.xml
 saucelabfvt.json
 tests/coverage/*
 tests/client/coverage/

@@ -11,7 +11,7 @@ module.exports = {
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   collectCoverageFrom: [
     // "client/**/*.js",
-    "routes/**/*.js" 
+    "routes/**/*.js"
   ],
 
   // The directory where Jest should output its coverage files
@@ -32,5 +32,19 @@ module.exports = {
   testEnvironment: "node",
 
   // This option allows the use of a custom results processor
-  testResultsProcessor: "jest-bamboo-reporter",
+  // testResultsProcessor: "jest-bamboo-reporter",
+  reporters: [
+    'default',
+    [
+      'jest-xunit',
+      {
+        traitsRegex: [
+          { regex: /\(Test Type:([^,)]+)(,|\)).*/g, name: 'Category' },
+          { regex: /.*Test Traits: ([^)]+)\).*/g, name: 'Type' }
+        ],
+        outputPath: './test/',
+        filename: 'jesttest.xml'
+      }
+    ]
+  ]
 };
