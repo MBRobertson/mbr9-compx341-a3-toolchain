@@ -14,3 +14,5 @@ scripts/*.json
 tests/client/coverage
 .nyc_output/
 coverage/
+build/
+.vscode/
