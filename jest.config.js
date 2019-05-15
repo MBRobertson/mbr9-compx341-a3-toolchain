@@ -95,7 +95,7 @@ module.exports = {
   // projects: null,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: ['json'],
+  // reporters: ['jest-mocha-reporter'],
 
   // Automatically reset mock state between every test
   // resetMocks: false,
@@ -153,7 +153,7 @@ module.exports = {
   // testRegex: [],
 
   // This option allows the use of a custom results processor
-  // testResultsProcessor: null,
+  testResultsProcessor: "jest-bamboo-reporter",
 
   // This option allows use of a custom test runner
   // testRunner: "jasmine2",
