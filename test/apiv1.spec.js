@@ -1,16 +1,16 @@
-var assert = require('chai').assert;
-var sinon = require('sinon');
-var rewire = require('rewire');
-var sinon = require('sinon');
-var apiv1 = rewire('../routes/apiv1.js');
+// Setup request mocking
+let requestCallback = (obj, callback) => { callback(null, null, null) };
+jest.mock('request');
 
-resMock = {
-    status: () => resMock,
-    send: () => resMock,
-    end: () => resMock
+import apiv1 from '../routes/apiv1.js';
+import request from 'request';
+
+let reqMock = {};
+let resMock = {
+    status: jest.fn(() => resMock).mockName('status'),
+    send: jest.fn(() => resMock).mockName('send'),
+    end: jest.fn(() => resMock)
 };
-sinon.spy(resMock, 'status');
-sinon.spy(resMock, 'send');
 
 describe('Get Weather', function () {
     it('with without city', function () {
@@ -21,7 +21,7 @@ describe('Get Weather', function () {
         };
 
         apiv1.getWeather(reqMock, resMock);
-        assert(resMock.status.lastCall.calledWith(400), 'Unexpected status code:' + resMock.status.lastCall.args);
+        expect(resMock.status).toHaveBeenCalledWith(400);
     });
 
     it('with valid city and error from request call', function () {
@@ -31,14 +31,12 @@ describe('Get Weather', function () {
             }
         };
 
-        apiv1.__set__("request", (obj, callback) => {
-            callback("error", null, null);
-        });
+        request.mockImplementation((obj, callback) => { callback("error", null, null) });
 
         apiv1.getWeather(reqMock, resMock);
 
-        assert(resMock.status.lastCall.calledWith(400), 'Unexpected response: ' + resMock.status.lastCall.args);
-        assert(resMock.send.lastCall.calledWith('Failed to get the data'), 'Unexpected response: ' + resMock.send.lastCall.args);
+        expect(resMock.status).toHaveBeenCalledWith(400);
+        expect(resMock.send).toHaveBeenCalledWith('Failed to get the data');
     });
 
     it('with incomplete city', function () {
@@ -48,16 +46,12 @@ describe('Get Weather', function () {
             }
         };
 
-        var request = function (obj, callback) {
-            callback(null, null, {});
-        };
-
-        apiv1.__set__("request", request);
+        request.mockImplementation((obj, callback) => { callback(null, null, {}) });
 
         apiv1.getWeather(reqMock, resMock);
 
-        assert(resMock.status.lastCall.calledWith(400), 'Unexpected response:' + resMock.status.lastCall.args);
-        assert(resMock.send.lastCall.args[0].msg === 'Failed', 'Unexpected response:' + resMock.send.lastCall.args);
+        expect(resMock.status).toHaveBeenCalledWith(400);
+        expect(resMock.send).toHaveBeenCalledWith({msg: 'Failed'});
     });
 
     it('with valid city', function () {
@@ -80,16 +74,14 @@ describe('Get Weather', function () {
             }
         };
 
-        var request = function (obj, callback) {
-            callback(null, null, body);
-        };
-
-        apiv1.__set__("request", request);
+        request.mockImplementation((obj, callback) => { callback(null, null, body) });
 
         apiv1.getWeather(reqMock, resMock);
 
-        assert(resMock.status.lastCall.calledWith(200), 'Unexpected response:' + resMock.status.lastCall.args);
-        assert(resMock.send.lastCall.args[0].city === 'Auckland', 'Unexpected response:' + resMock.send.lastCall.args[0].city);
-        assert(resMock.send.lastCall.args[0].weather === 'Conditions are cold and temperature is 18 C', 'Unexpected response:' + resMock.send.lastCall.args[0].weather);
+        expect(resMock.status).toHaveBeenCalledWith(200);
+        expect(resMock.send).toHaveBeenCalledWith({
+            city: 'Auckland',
+            weather: 'Conditions are cold and temperature is 18 C'
+        });
     });
 });

@@ -13,4 +13,6 @@ Removed dependancy on grunt, using npm tasks
 Moved into a webpack build system rather than bower dependancies
 Moved to react away from angular v1 (not deprecated).
 
+Moved testing from mocha to jest
+
 TODO: Look into supertest

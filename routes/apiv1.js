@@ -1,11 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
-var REQUEST = require('request');
-
-var request = REQUEST.defaults( {
-    strictSSL: false
-});
+var request = require('request');
 
 var OPENWEATHERURL = "http://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric";
 
