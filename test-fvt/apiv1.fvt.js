@@ -26,7 +26,38 @@ describe('Get Weather', function () {
         });
     });
 
-    it('without city', function (done) {
+    it('with valid lat lon', function (done) {
+        if (!appUrl) {
+            assert.fail("Environment variable APP_URL is not defined");
+            return done();
+        }
+        request({
+            method: 'GET',
+            url: appUrl + '/api/v1/getWeather?lat=-36.84&lon=174.76'
+        }, function (err, resp, body) {
+            expect(err).toBeNull();
+            expect(resp.statusCode).toBe(200);
+            var pbody = JSON.parse(body);
+            expect(pbody.city).toBe('Auckland');
+            expect(pbody.coord).toEqual({"lon":174.76,"lat":-36.84});
+            done();
+        });
+    });
+
+    it('with city and lat lon', function (done) {
+        expect(appUrl).not.toBeNull();
+
+        request({
+            method: 'GET',
+            url: appUrl + '/api/v1/getWeather?lat=-36.84&lon=174.76&city=Auckland'
+        }, /* @callback */ function (err, resp, body) {
+            expect(err).toBeNull();
+            expect(resp.statusCode).toBe(400);
+            done();
+        });
+    });
+
+    it('without city or lat lon', function (done) {
         expect(appUrl).not.toBeNull();
 
         request({

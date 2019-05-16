@@ -13,10 +13,34 @@ let resMock = {
 };
 
 describe('Get Weather', function () {
-    it('with without city', function () {
+    it('with without query', function () {
         reqMock = {
             query: {
 
+            }
+        };
+
+        apiv1.getWeather(reqMock, resMock);
+        expect(resMock.status).toHaveBeenCalledWith(400);
+    });
+
+    it('with valid city and lat lon', function () {
+        reqMock = {
+            query: {
+                city: 'Auckland',
+                lat: -36.84,
+                lon: 174.76
+            }
+        };
+
+        apiv1.getWeather(reqMock, resMock);
+        expect(resMock.status).toHaveBeenCalledWith(400);
+    });
+
+    it('with only lon and no lat', function () {
+        reqMock = {
+            query: {
+                lon: 174.76
             }
         };
 
@@ -84,6 +108,40 @@ describe('Get Weather', function () {
             city: 'Auckland',
             weather: 'Conditions are cold and temperature is 18 C',
             coord: {"lon":174.77,"lat":-36.85}
+        });
+    });
+
+    it('with valid lat lon', function() {
+        reqMock = {
+            query: {
+                lat: -36.84,
+                lon: 174.76
+            }
+        };
+
+        var body = {
+            cod: 200,
+            name: 'Auckland',
+            weather: [
+                {
+                    main: 'cold'
+                }
+            ],
+            main: {
+                temp: 18
+            },
+            coord: {"lon":174.76,"lat":-36.84}
+        };
+
+        request.mockImplementation((obj, callback) => { callback(null, null, body) });
+
+        apiv1.getWeather(reqMock, resMock);
+
+        expect(resMock.status).toHaveBeenCalledWith(200);
+        expect(resMock.send).toHaveBeenCalledWith({
+            city: 'Auckland',
+            weather: 'Conditions are cold and temperature is 18 C',
+            coord: {"lon":174.76,"lat":-36.84}
         });
     });
 });

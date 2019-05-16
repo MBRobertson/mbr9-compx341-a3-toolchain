@@ -27,3 +27,7 @@ Tests adjusted to also test for coordinates
 
 Added map
     Ensure always viewing New Zealand
+
+Added ability for API to fetch data by latitude and longitude
+    Need to test for these paramters (only one of each)
+    Need to test that both city and location are not provided
