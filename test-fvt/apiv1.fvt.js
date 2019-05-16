@@ -66,3 +66,19 @@ describe('Get Weather', function () {
         });
     });
 });
+
+describe('Web App Client', function() {
+    it('can be accessed', function(done) {
+        expect(appUrl).not.toBeNull();
+
+        request({
+            method: 'GET',
+            url: appUrl + '/'
+        }, function (err, resp, body) {
+            expect(err).toBeNull();
+            expect(resp.statusCode).toBe(200);
+            expect(body).not.toBeNull();
+            done();
+        });
+    });
+})

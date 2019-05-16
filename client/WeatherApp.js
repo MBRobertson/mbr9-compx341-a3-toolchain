@@ -28,3 +28,5 @@ class WeatherApp extends React.Component {
 }
 
 ReactDOM.render(<WeatherApp/>, document.getElementById('react-root'))
+
+export default WeatherApp;

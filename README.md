@@ -15,4 +15,8 @@ Moved to react away from angular v1 (not deprecated).
 
 Moved testing from mocha to jest
 
+Added test for returning an index page
+
+Tests for react rendering
+    Four elements correctly rendered
 TODO: Look into supertest
