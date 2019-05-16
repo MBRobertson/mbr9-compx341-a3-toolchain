@@ -8,12 +8,7 @@ import { SearchBar } from './Misc/SearchBar';
 
 import './WeatherApp.scss';
 
-let Header = () => <h1 className='header'>Current Weather</h1>
-
-let TableHeader = () => <div className='header city-info'>
-    <span className='city'>Location</span>
-    <span className='weather'>Weather</span>
-</div>
+let Header = () => <h1 className='header'>New Zealand Weather Map</h1>
 
 class WeatherApp extends React.Component {
     constructor() {
@@ -28,13 +23,16 @@ class WeatherApp extends React.Component {
         this._addLocation = this._addLocation.bind(this);
         this.addLocationFromCity = this.addLocationFromCity.bind(this);
         this.addLocationFromCoord = this.addLocationFromCoord.bind(this);
+
+        this.addLocationFromCity('Auckland')
+        this.addLocationFromCity('Hamilton')
     }
 
-    async _addLocation(dataPromise) {
+    async _addLocation(dataPromise, placeholder) {
         // Set a temporary state
         let stateData = this.state.weatherData;
         let index = this.nextIndex++;
-        stateData[index] = { ...API.DEFAULT_RESPONSE, ready: false };
+        stateData[index] = { ...API.DEFAULT_RESPONSE, ready: false, city: placeholder };
         this.setState({ weatherData: stateData });
 
         let data = await dataPromise;
@@ -48,12 +46,12 @@ class WeatherApp extends React.Component {
 
     // Track a city, searching for it by name
     async addLocationFromCity(city) {
-        this._addLocation(API.getWeather(city))
+        this._addLocation(API.getWeather(city), city)
     }
 
     // Track a city, searching for it by coordinate
     async addLocationFromCoord(coord) {
-        this._addLocation(API.getWeatherLatLon(coord))
+        this._addLocation(API.getWeatherLatLon(coord), coord.lat.toFixed(2) + "," + coord.lon.toFixed(2))
     }
 
     render() {
@@ -61,17 +59,22 @@ class WeatherApp extends React.Component {
         let dataKeys = Object.keys(data);
         return <div className='app'>
             <Header/>
-            <SearchBar onSearch={this.addLocationFromCity}/>
-            <TableHeader/>
-            {dataKeys.map(
-                (key) => <CityInfo key={key} data={this.state.weatherData[key]}/>
-            )}
-            <MapContainer 
-                onLocationSelect={this.addLocationFromCoord}
-                markers={
-                    dataKeys.filter(key => data[key].coord.lat != 0).map(key => data[key].coord)
-                }
-            />
+            <section className='search'>
+                <SearchBar onSearch={this.addLocationFromCity}/>
+            </section>
+            <section className='data-info'>
+                {dataKeys.map(
+                    (key) => <CityInfo key={key} data={this.state.weatherData[key]}/>
+                )}
+            </section>
+            <section className='map'>
+                <MapContainer 
+                    onLocationSelect={this.addLocationFromCoord}
+                    markers={
+                        dataKeys.filter(key => data[key].coord.lat != 0).map(key => data[key].coord)
+                    }
+                />
+            </section>
         </div>;
     }
 }

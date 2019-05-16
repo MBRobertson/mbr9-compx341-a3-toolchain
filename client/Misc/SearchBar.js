@@ -31,7 +31,7 @@ class SearchBar extends React.Component {
     render() {
         return (<div className='searchbar'>
             <input placeholder='Search by name...' type='text' value={this.state.text} onChange={this.onTextChange} onKeyDown={this.onKeyPress}/>
-            <button onClick={this.onSearch}>Search</button>
+            <button onClick={this.onSearch}><i className='material-icons'>search</i></button>
         </div>);
     }
 }

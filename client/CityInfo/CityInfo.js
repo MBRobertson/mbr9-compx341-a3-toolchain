@@ -10,7 +10,7 @@ class CityInfo extends React.Component {
     render() {
         return <div className='city-info'>
             <span className='city underline'>{this.props.data.city}</span>
-            <span className='weather underline'>{this.props.data.weather}</span>
+            <span className='weather'>{this.props.data.weather}</span>
         </div>
     }
 }
