@@ -17,7 +17,7 @@ let getWeather = async function(city) {
         });
         return data;
     } catch (err) {
-        return { ...DEFAULT_RESPONSE, failed: true };
+        return { ...DEFAULT_RESPONSE, failed: true, city: city };
     }
     
 }

@@ -23,6 +23,11 @@ body {
             padding: 25px;
             flex-wrap: wrap;
             justify-content: center;
+
+            p {
+                font-size: 14pt;
+                color: rgb(110, 110, 110)
+            }
         }
     }
 }

@@ -21,11 +21,10 @@ class WeatherApp extends React.Component {
         }
 
         this._addLocation = this._addLocation.bind(this);
+        this.deleteLocation = this.deleteLocation.bind(this);
         this.addLocationFromCity = this.addLocationFromCity.bind(this);
         this.addLocationFromCoord = this.addLocationFromCoord.bind(this);
 
-        this.addLocationFromCity('Auckland')
-        this.addLocationFromCity('Hamilton')
     }
 
     async _addLocation(dataPromise, placeholder) {
@@ -42,6 +41,12 @@ class WeatherApp extends React.Component {
             stateData[index] = { ...data, ready: true }
             this.setState({ weatherData: stateData });
         }
+    }
+
+    deleteLocation(index) {
+        let stateData = this.state.weatherData;
+        delete stateData[index];
+        this.setState({ weatherData: stateData });
     }
 
     // Track a city, searching for it by name
@@ -64,8 +69,9 @@ class WeatherApp extends React.Component {
             </section>
             <section className='data-info'>
                 {dataKeys.map(
-                    (key) => <CityInfo key={key} data={this.state.weatherData[key]}/>
+                    (key) => <CityInfo key={key} onClose={this.deleteLocation} index={key} data={this.state.weatherData[key]}/>
                 )}
+                {(dataKeys.length == 0) ? <p>To get started type a city name above, or select a location on the map below</p> : []}
             </section>
             <section className='map'>
                 <MapContainer 
