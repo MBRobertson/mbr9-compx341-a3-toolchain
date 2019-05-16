@@ -36,3 +36,6 @@ In order to better facilitate clicking bahaviour, now maintains a dynamic list o
 Click on map to add or search to add
 
 Map and search and search bar enforced with test
+
+# Task 3
+Connecting cloudant datastore

@@ -5,8 +5,10 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "@cloudant/cloudant": "^4.1.0",
     "@react-google-maps/api": "^1.2.3-alpha.11",
     "body-parser": "*",
+    "cfenv": "^1.2.2",
     "express": "*",
     "node-fetch": "^2.5.0",
     "react": "^16.8.6",

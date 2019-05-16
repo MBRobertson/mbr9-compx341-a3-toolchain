@@ -20,3 +20,4 @@ tests/client/coverage
 coverage/
 build/
 .vscode/
+vcap-local.json
