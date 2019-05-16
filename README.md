@@ -24,3 +24,6 @@ TODO: Look into supertest
 # Task 2
 API responds with coordinates of the place being searched
 Tests adjusted to also test for coordinates
+
+Added map
+    Ensure always viewing New Zealand
