@@ -6,6 +6,31 @@ import './MapContainer.scss';
 let GOOGLE_MAPS_API_KEY = 'AIzaSyCxi0RT7_sv_9cSMQxW94EH5Zy62RsYPKc';
 
 class MapContainer extends React.Component {
+    constructor() {
+        super();
+
+        this.center = {
+            lat: -40.9006,
+            lng: 174.8860
+        }
+
+        this.onMapClick = this.onMapClick.bind(this)
+    }
+
+    onMapClick(event) {
+        let coord = {
+            lat: event.latLng.lat(),
+            lon: event.latLng.lng()
+        }
+        if (this.props.onLocationSelect)
+            this.props.onLocationSelect(coord)
+    }
+
+    // Slight hack to prevent the map from reseting each time a marker is added
+    componentDidUpdate() {
+        this.center = undefined;
+    }
+
     render() {
         let NZ_LAT_LNG = {
             lat: -40.9006,
@@ -22,6 +47,7 @@ class MapContainer extends React.Component {
         let mapOptions = {
             gestureHandling: 'greedy',
             minZoom: 5,
+            center: this.center,
             streetViewControl: false,
             mapTypeControl: false,
             fullscreenControl: false,
@@ -47,8 +73,9 @@ class MapContainer extends React.Component {
                         width: "100%"
                     }} 
                     zoom={5}
-                    center={NZ_LAT_LNG}
-                    options={mapOptions}>
+                    onClick={this.onMapClick}
+                    options={mapOptions}
+                    reuseSameInstance={true}>
                     
                         {markerCoords.map((coord, index) => 
                             <Marker key={index} position={coord}/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import API from './API';
 
 import { CityInfo } from './CityInfo/CityInfo';
 import { MapContainer } from './Map/MapContainer';
@@ -9,7 +10,6 @@ import './WeatherApp.scss';
 let Header = () => <h1 className='header'>Current Weather</h1>
 
 let SearchHeader = () => <div className='header city-info'>
-    <span className='city-input'>Search</span>
     <span className='city'>Location</span>
     <span className='weather'>Weather</span>
 </div>
@@ -18,37 +18,63 @@ class WeatherApp extends React.Component {
     constructor() {
         super();
 
+        this.nextIndex = 1;
+
         this.state = {
-            weatherData: [
-                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coord: { lat: 0, lon: 0 }}
-            ]
+            weatherData: {}
         }
 
-        this.updateData = this.updateData.bind(this);
+        this._addLocation = this._addLocation.bind(this);
+        this.addLocationFromCity = this.addLocationFromCity.bind(this);
+        this.addLocationFromCoord = this.addLocationFromCoord.bind(this);
     }
 
-    // Call back for when a city info control updates the city it is inspecting
-    updateData(index, data) {
+    componentDidMount() {
+        this.addLocationFromCity("Auckland")
+    }
+
+    async _addLocation(dataPromise) {
+        // Set a temporary state
         let stateData = this.state.weatherData;
-        stateData[index] = data;
-        this.setState({
-            weatherData: stateData
-        });
+        let index = this.nextIndex++;
+        stateData[index] = { ...API.DEFAULT_RESPONSE, ready: false };
+        this.setState({ weatherData: stateData });
+
+        let data = await dataPromise;
+        stateData = this.state.weatherData;
+        // Check that the entry hasn't been removed in the mean time
+        if (index in stateData) {
+            stateData[index] = { ...data, ready: true }
+            this.setState({ weatherData: stateData });
+        }
+    }
+
+    // Track a city, searching for it by name
+    async addLocationFromCity(city) {
+        this._addLocation(API.getWeather(city))
+    }
+
+    // Track a city, searching for it by coordinate
+    async addLocationFromCoord(coord) {
+        console.log(coord);
+        this._addLocation(API.getWeatherLatLon(coord))
     }
 
     render() {
+        let data = this.state.weatherData;
+        let dataKeys = Object.keys(data);
         return <div className='app'>
             <Header/>
             <SearchHeader/>
-            {this.state.weatherData.map(
-                (data, index) => <CityInfo key={index} data={data} index={index} updateData={this.updateData}/>
+            {dataKeys.map(
+                (key) => <CityInfo key={key} data={this.state.weatherData[key]}/>
             )}
-            <MapContainer markers={
-                this.state.weatherData.filter(data => data.city != '').map(data => data.coord)
-            }/>
+            <MapContainer 
+                onLocationSelect={this.addLocationFromCoord}
+                markers={
+                    dataKeys.filter(key => data[key].coord.lat != 0).map(key => data[key].coord)
+                }
+            />
         </div>;
     }
 }
