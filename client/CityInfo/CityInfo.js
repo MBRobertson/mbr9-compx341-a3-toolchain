@@ -9,23 +9,18 @@ class CityInfo extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            city: '',
-            weather: ''
-        };
-
         this.onCityChange = this.onCityChange.bind(this);
     }
 
     async onCityChange(cityName) {
-        this.setState(await getWeather(cityName));
+        this.props.updateData(this.props.index, await getWeather(cityName))
     }
 
     render() {
         return <div className='city-info'>
             <CityInput onUpdate={this.onCityChange}/>
-            <span className='city underline'>{this.state.city}</span>
-            <span className='weather underline'>{this.state.weather}</span>
+            <span className='city underline'>{this.props.data.city}</span>
+            <span className='weather underline'>{this.props.data.weather}</span>
         </div>
     }
 }
