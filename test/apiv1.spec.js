@@ -71,7 +71,8 @@ describe('Get Weather', function () {
             ],
             main: {
                 temp: 18
-            }
+            },
+            coord: {"lon":174.77,"lat":-36.85}
         };
 
         request.mockImplementation((obj, callback) => { callback(null, null, body) });
@@ -81,7 +82,8 @@ describe('Get Weather', function () {
         expect(resMock.status).toHaveBeenCalledWith(200);
         expect(resMock.send).toHaveBeenCalledWith({
             city: 'Auckland',
-            weather: 'Conditions are cold and temperature is 18 C'
+            weather: 'Conditions are cold and temperature is 18 C',
+            coord: {"lon":174.77,"lat":-36.85}
         });
     });
 });

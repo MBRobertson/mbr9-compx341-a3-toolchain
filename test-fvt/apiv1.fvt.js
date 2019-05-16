@@ -21,6 +21,7 @@ describe('Get Weather', function () {
             expect(resp.statusCode).toBe(200);
             var pbody = JSON.parse(body);
             expect(pbody.city).toBe('Auckland');
+            expect(pbody.coord).toEqual({"lon":174.77,"lat":-36.85});
             done();
         });
     });
@@ -49,6 +50,7 @@ describe('Get Weather', function () {
             expect(resp.statusCode).toBe(200);
             var pbody = JSON.parse(body);
             expect(pbody.city).toBe('Hamilton');
+            expect(pbody.coord).toEqual({"lon":175.28,"lat":-37.79});
             done();
         });
     });

@@ -9,7 +9,7 @@ let getWeather = async function(city) {
     try {
         return (fetch(API_URL + '/getWeather?city=' + city).then(res => res.json()));
     } catch (err) {
-        return { city: '', weather: '' }
+        return { city: '', weather: '', coords: { lat: 0, lon: 0 } }
     }
     
 }

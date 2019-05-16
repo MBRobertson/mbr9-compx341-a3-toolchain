@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 
-var OPENWEATHERURL = "http://api.openweathermap.org/data/2.5/weather?appid=6b7b471967dd0851d0010cdecf28f829&units=metric";
+var OPENWEATHERURL = "http://api.openweathermap.org/data/2.5/weather?appid=15fe5de8d743843fdadd3ad7b5a458a7&units=metric";
 
 exports.getWeather = function(req, res) {
 	var city = req.query.city;
@@ -24,7 +24,7 @@ exports.getWeather = function(req, res) {
     	} else {
     		if(body.cod === 200) {
     			var weath = "Conditions are " + body.weather[0].main + " and temperature is " + body.main.temp + ' C';
-    			var response = {city: body.name, weather: weath};
+    			var response = {city: body.name, weather: weath, coord: body.coord};
     			return res.status(200).send(response);
     		} else {
                 return res.status(400).send({msg:'Failed'});
