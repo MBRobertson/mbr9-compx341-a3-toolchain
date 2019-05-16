@@ -11,6 +11,7 @@ let getWeather = async function(city) {
             if (res.status != 200) throw "Invalid response code"
             return res.json()
         });
+        return data;
     } catch (err) {
         return { city: '', weather: '', coord: { lat: 0, lon: 0 } }
     }
