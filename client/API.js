@@ -7,9 +7,10 @@ let API_URL='/api/v1';
 // Values are empty of server returned no values
 let getWeather = async function(city) {
     try {
-        return (fetch(API_URL + '/getWeather?city=' + city).then(res => res.json()));
+        let data = await fetch(API_URL + '/getWeather?city=' + city).then(res => res.json());
+        if (data.msg) throw "Bad Data"
     } catch (err) {
-        return { city: '', weather: '', coords: { lat: 0, lon: 0 } }
+        return { city: '', weather: '', coord: { lat: 0, lon: 0 } }
     }
     
 }
