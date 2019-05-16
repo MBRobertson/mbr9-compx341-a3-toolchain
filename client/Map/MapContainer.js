@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api'
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 
 import './MapContainer.scss';
 
@@ -31,6 +31,14 @@ class MapContainer extends React.Component {
             }
         }
 
+        // Transform lon -> lng for google maps format
+        let markerCoords = this.props.markers.map(coord => {
+            return {
+                lat: coord['lat'],
+                lng: coord['lon']
+            }
+        });
+
         return (
             <div className='google-map'>
                 <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
@@ -40,7 +48,13 @@ class MapContainer extends React.Component {
                     }} 
                     zoom={5}
                     center={NZ_LAT_LNG}
-                    options={mapOptions}/>
+                    options={mapOptions}>
+                    
+                        {markerCoords.map((coord, index) => 
+                            <Marker key={index} position={coord}/>
+                        )}
+
+                    </GoogleMap>
                 </LoadScript>
             </div>
         )

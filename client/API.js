@@ -7,6 +7,8 @@ let API_URL='/api/v1';
 // Values are empty of server returned no values
 let getWeather = async function(city) {
     try {
+        if (city == '') throw "City should not be empty"
+        
         let data = await fetch(API_URL + '/getWeather?city=' + city).then(res => {
             if (res.status != 200) throw "Invalid response code"
             return res.json()

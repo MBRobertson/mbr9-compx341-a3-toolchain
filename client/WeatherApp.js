@@ -20,10 +20,10 @@ class WeatherApp extends React.Component {
 
         this.state = {
             weatherData: [
-                { city: '', weather: '', coords: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coords: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coords: { lat: 0, lon: 0 }},
-                { city: '', weather: '', coords: { lat: 0, lon: 0 }}
+                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
+                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
+                { city: '', weather: '', coord: { lat: 0, lon: 0 }},
+                { city: '', weather: '', coord: { lat: 0, lon: 0 }}
             ]
         }
 
@@ -46,7 +46,9 @@ class WeatherApp extends React.Component {
             {this.state.weatherData.map(
                 (data, index) => <CityInfo key={index} data={data} index={index} updateData={this.updateData}/>
             )}
-            <MapContainer/>
+            <MapContainer markers={
+                this.state.weatherData.filter(data => data.city != '').map(data => data.coord)
+            }/>
         </div>;
     }
 }
