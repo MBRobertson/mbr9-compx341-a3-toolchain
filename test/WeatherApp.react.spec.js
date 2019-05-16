@@ -7,7 +7,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { render, shallow } from 'enzyme';
 import WeatherApp from '../client/WeatherApp';
-import CityInfo from '../client/CityInfo/CityInfo';
+import SearchBar from '../client/Misc/SearchBar';
+import MapContainer from '../client/Map/MapContainer';
 
 describe('WeatherApp', () => {
     it('renders without error', (done) => {
@@ -16,9 +17,15 @@ describe('WeatherApp', () => {
         done();
     });
 
-    it('renders four city info boxes', (done) => {
+    it('has a search bar', (done) => {
         const wrapper = shallow(<WeatherApp />)
-        expect(wrapper.find(CityInfo).length).toBe(4);
+        expect(wrapper.find(SearchBar).length).toBe(1);
+        done();
+    });
+
+    it('has a map', (done) => {
+        const wrapper = shallow(<WeatherApp />)
+        expect(wrapper.find(MapContainer).length).toBe(1);
         done();
     });
 })
