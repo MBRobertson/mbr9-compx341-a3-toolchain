@@ -4,12 +4,13 @@ import API from './API';
 
 import { CityInfo } from './CityInfo/CityInfo';
 import { MapContainer } from './Map/MapContainer';
+import { SearchBar } from './Misc/SearchBar';
 
 import './WeatherApp.scss';
 
 let Header = () => <h1 className='header'>Current Weather</h1>
 
-let SearchHeader = () => <div className='header city-info'>
+let TableHeader = () => <div className='header city-info'>
     <span className='city'>Location</span>
     <span className='weather'>Weather</span>
 </div>
@@ -27,10 +28,6 @@ class WeatherApp extends React.Component {
         this._addLocation = this._addLocation.bind(this);
         this.addLocationFromCity = this.addLocationFromCity.bind(this);
         this.addLocationFromCoord = this.addLocationFromCoord.bind(this);
-    }
-
-    componentDidMount() {
-        this.addLocationFromCity("Auckland")
     }
 
     async _addLocation(dataPromise) {
@@ -56,7 +53,6 @@ class WeatherApp extends React.Component {
 
     // Track a city, searching for it by coordinate
     async addLocationFromCoord(coord) {
-        console.log(coord);
         this._addLocation(API.getWeatherLatLon(coord))
     }
 
@@ -65,7 +61,8 @@ class WeatherApp extends React.Component {
         let dataKeys = Object.keys(data);
         return <div className='app'>
             <Header/>
-            <SearchHeader/>
+            <SearchBar onSearch={this.addLocationFromCity}/>
+            <TableHeader/>
             {dataKeys.map(
                 (key) => <CityInfo key={key} data={this.state.weatherData[key]}/>
             )}

@@ -31,3 +31,6 @@ Added map
 Added ability for API to fetch data by latitude and longitude
     Need to test for these paramters (only one of each)
     Need to test that both city and location are not provided
+
+In order to better facilitate clicking bahaviour, now maintains a dynamic list of locations
+Click on map to add or search to add

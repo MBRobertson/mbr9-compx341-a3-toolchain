@@ -17,7 +17,7 @@ let getWeather = async function(city) {
         });
         return data;
     } catch (err) {
-        return DEFAULT_RESPONSE;
+        return { ...DEFAULT_RESPONSE, failed: true };
     }
     
 }
@@ -32,7 +32,7 @@ let getWeatherLatLon = async function(coord) {
         });
         return data;
     } catch (err) {
-        return DEFAULT_RESPONSE;
+        return { ...DEFAULT_RESPONSE, failed: true };
     }
     
 }
