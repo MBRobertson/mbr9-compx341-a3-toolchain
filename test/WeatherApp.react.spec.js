@@ -9,8 +9,6 @@ import { render, shallow } from 'enzyme';
 import WeatherApp from '../client/WeatherApp';
 import CityInfo from '../client/CityInfo/CityInfo';
 
-afterEach
-
 describe('WeatherApp', () => {
     it('renders without error', (done) => {
         const wrapper = render(<WeatherApp />)

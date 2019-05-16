@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { CityInfo } from './CityInfo/CityInfo';
+import { MapContainer } from './Map/MapContainer';
 
 import './WeatherApp.scss';
 
@@ -23,6 +24,7 @@ class WeatherApp extends React.Component {
             <CityInfo/>
             <CityInfo/>
             <CityInfo/>
+            <MapContainer/>
         </div>;
     }
 }
