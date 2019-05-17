@@ -6,12 +6,15 @@ let appEnv = cfenv.getAppEnv({ vcapFile: path.join(__dirname, 'vcap-local.json')
 let cloudant;
 
 // Initialize database with credentials
-if (process.env.NODE_ENV != 'test') {
+try {
     if (appEnv.services['cloudantNoSQLDB']) {
         cloudant = CLOUDANT(appEnv.services['cloudantNoSQLDB'][0].credentials);
     } else {
         cloudant = CLOUDANT(appEnv.getService(/cloudant/).credentials);
     }
+} catch (err) {
+    // This occurs when running in a testing environment
+    cloudant = {};
 }
 
 
