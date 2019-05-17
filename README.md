@@ -42,3 +42,6 @@ Connecting cloudant datastore
 
 Testing api that gets and sets are called appropriate amounts
 Also need to check that databse isn't updated when passed bad data
+
+FVT to check that data is fetched without error
+(Opted out of fvt for setting data, as we do not currently have testing/staging database, this means tests override current data)

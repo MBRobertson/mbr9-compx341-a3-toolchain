@@ -1,9 +1,11 @@
+// Test the servers ability to sync data to a remote database
+// All database interactions are mocked
+
 // Setup request mocking
 let requestCallback = (obj, callback) => { callback(null, null, null) };
 jest.mock('request');
 
 // Setup database mocking
-
 jest.mock('../cloudant_db.js', () => {
     let mockInsert = jest.fn().mockName('insert');
     let mockGet = jest.fn(() => {
