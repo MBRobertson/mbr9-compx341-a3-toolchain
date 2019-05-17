@@ -39,3 +39,6 @@ Map and search and search bar enforced with test
 
 # Task 3
 Connecting cloudant datastore
+
+Testing api that gets and sets are called appropriate amounts
+Also need to check that databse isn't updated when passed bad data

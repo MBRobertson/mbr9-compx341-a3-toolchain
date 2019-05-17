@@ -1,3 +1,5 @@
+import '@babel/polyfill';
+
 global.document = {}
 Object.defineProperty(document, 'getElementById', {
     value: () => {},

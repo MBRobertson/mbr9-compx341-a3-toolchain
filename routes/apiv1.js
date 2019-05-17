@@ -56,6 +56,7 @@ exports.updateLocations = async function(req, res) {
 	try {
 		let db = await dbPromise;
 		let weatherData = req.body.weatherData;
+		if (!weatherData) throw "No data provided"
 		// Update an existing documents revisions
 		let _rev = (await db.get(documentData._id))._rev;
 		await db.insert({ ...documentData, _rev: _rev, weatherData: weatherData});
@@ -75,7 +76,6 @@ exports.getLocations = async function(req, res) {
 		let data = await db.get(documentData._id);
 		res.status(200).send({ weatherData: data.weatherData, success: true })
 	} catch (err) {
-		console.log(err);
 		res.status(400).send({ success: false })
 	}
 }

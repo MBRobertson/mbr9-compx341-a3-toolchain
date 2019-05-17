@@ -12,7 +12,7 @@ if (appEnv.services['cloudantNoSQLDB']) {
     cloudant = CLOUDANT(appEnv.getService(/cloudant/).credentials);
 }
 
-dbName = 'compx341-a3';
+let dbName = 'compx341-a3';
 async function getDB() {
     try {
         await cloudant.db.create(dbName);
