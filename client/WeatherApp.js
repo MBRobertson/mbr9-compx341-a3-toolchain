@@ -17,14 +17,27 @@ class WeatherApp extends React.Component {
         this.nextIndex = 1;
 
         this.state = {
-            weatherData: {}
+            weatherData: {},
+            ready: false
         }
 
         this._addLocation = this._addLocation.bind(this);
         this.deleteLocation = this.deleteLocation.bind(this);
         this.addLocationFromCity = this.addLocationFromCity.bind(this);
         this.addLocationFromCoord = this.addLocationFromCoord.bind(this);
+        this.fetchRemoteLocations = this.fetchRemoteLocations.bind(this);
+    }
 
+    async componentDidMount() {
+        await this.fetchRemoteLocations();
+        this.setState({ ready: true })
+    }
+
+    async fetchRemoteLocations() {
+        let coords = await API.getSavedLocations();
+        coords.forEach(coord => {
+            this.addLocationFromCoord(coord);
+        })
     }
 
     async _addLocation(dataPromise, placeholder) {
@@ -39,14 +52,18 @@ class WeatherApp extends React.Component {
         // Check that the entry hasn't been removed in the mean time
         if (index in stateData) {
             stateData[index] = { ...data, ready: true }
-            this.setState({ weatherData: stateData });
+            this.setState({ weatherData: stateData }, () => {
+                API.updateLocations(this.state.weatherData);
+            });
         }
     }
 
     deleteLocation(index) {
         let stateData = this.state.weatherData;
         delete stateData[index];
-        this.setState({ weatherData: stateData });
+        this.setState({ weatherData: stateData }, () => {
+            API.updateLocations(this.state.weatherData);
+        });
     }
 
     // Track a city, searching for it by name
@@ -71,7 +88,12 @@ class WeatherApp extends React.Component {
                 {dataKeys.map(
                     (key) => <CityInfo key={key} onClose={this.deleteLocation} index={key} data={this.state.weatherData[key]}/>
                 )}
-                {(dataKeys.length == 0) ? <p>To get started type a city name above, or select a location on the map below</p> : []}
+                {(dataKeys.length == 0) ? <p>
+                    {this.state.ready ? 
+                        'To get started type a city name above, or select a location on the map below' :
+                        'Fetching data...'
+                    }
+                </p> : []}
             </section>
             <section className='map'>
                 <MapContainer 

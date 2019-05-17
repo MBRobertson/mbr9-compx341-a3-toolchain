@@ -37,5 +37,35 @@ let getWeatherLatLon = async function(coord) {
     
 }
 
-export default { getWeather: getWeather, getWeatherLatLon: getWeatherLatLon, DEFAULT_RESPONSE: DEFAULT_RESPONSE }
-export { getWeather, getWeatherLatLon, DEFAULT_RESPONSE }
+// Sync coordinates to database to restore sessions
+let updateLocations = async function(weatherData) {
+    try {
+        let keys = Object.keys(weatherData);
+        let coords = keys.map(key => weatherData[key].coord);
+
+        let response = await fetch(API_URL + '/locations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ weatherData: coords })
+        }).then(res => res.json())
+
+        return response.success;
+    } catch (err) {
+        return false;
+    }
+}
+
+let getSavedLocations = async function() {
+    try {
+        let data = await fetch(API_URL + '/locations').then(res => res.json());
+        return data.weatherData;
+    } catch (err) {
+        return [];
+    }
+}
+
+export default { getWeather: getWeather, getWeatherLatLon: getWeatherLatLon, DEFAULT_RESPONSE: DEFAULT_RESPONSE, 
+    updateLocations: updateLocations, getSavedLocations: getSavedLocations }
+export { getWeather, getWeatherLatLon, DEFAULT_RESPONSE, updateLocations, getSavedLocations }
