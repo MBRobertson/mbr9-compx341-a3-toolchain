@@ -16,7 +16,7 @@
     "request": "^2.65.0"
   },
   "engines": {
-    "node": "6.17.1"
+    "node": "10.15.3"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
