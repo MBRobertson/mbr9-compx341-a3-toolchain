@@ -62,7 +62,6 @@ exports.updateLocations = async function(req, res) {
 		await db.insert({ ...documentData, _rev: _rev, weatherData: weatherData});
 		res.status(200).send({ success: true })
 	} catch (err) {
-		console.log(err);
 		res.status(400).send({ success: false })
 	}
 }

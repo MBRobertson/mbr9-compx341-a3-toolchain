@@ -6,11 +6,14 @@ let appEnv = cfenv.getAppEnv({ vcapFile: path.join(__dirname, 'vcap-local.json')
 let cloudant;
 
 // Initialize database with credentials
-if (appEnv.services['cloudantNoSQLDB']) {
-    cloudant = CLOUDANT(appEnv.services['cloudantNoSQLDB'][0].credentials);
-} else {
-    cloudant = CLOUDANT(appEnv.getService(/cloudant/).credentials);
+if (process.env.NODE_ENV != 'test') {
+    if (appEnv.services['cloudantNoSQLDB']) {
+        cloudant = CLOUDANT(appEnv.services['cloudantNoSQLDB'][0].credentials);
+    } else {
+        cloudant = CLOUDANT(appEnv.getService(/cloudant/).credentials);
+    }
 }
+
 
 let dbName = 'compx341-a3';
 async function getDB() {
