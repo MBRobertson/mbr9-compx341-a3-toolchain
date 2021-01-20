@@ -1,7 +1,7 @@
 # New Zealand Weather Map
-A small React and Node app for interactively viewing weather conditions across New Zealand. Designed to be deployed on IBM Cloud.
+A small React and Node app for interactively viewing weather conditions across New Zealand. 
+Designed to be deployed on IBM Cloud, experimenting with various clouds, CI integrations, and automated testing
 
-[**Live Demo**](https://mbr9-compx341-a3-toolchain.mybluemix.net/)
 
 ![App Example](__readme_static__/app.png)
 
